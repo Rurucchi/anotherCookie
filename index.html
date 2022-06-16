@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script>
+    let score = 0;
+    let macro = 0;
+    let bigMacro = 10;
+    let cost2 = 1000;
+    let cost = 100;
+    document.getElementById('cost').innerHTML = cost;
+
+    function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+
+    function addCookie() {
+        score++;
+        document.getElementById('score').innerHTML = score;
+    }
+
+    function runMacro(macroTier) {
+        score += macroTier;
+        document.getElementById('score').innerHTML = score;
+        delay(1000).then(() => runMacro(macroTier));
+    }
+
+
+    function addMacro() {
+        if (cost <= score) {
+            score -= cost;
+            cost *= 2;
+            document.getElementById('cost').innerHTML = cost;
+            document.getElementById('score').innerHTML = score;
+
+            macro++;
+            runMacro(macro);
+        }
+    }
+
+        function addSuperMacro() {
+        if (cost2 <= score) {
+            score -= cost2;
+            cost2 *= 10;
+            document.getElementById('lean').innerHTML = cost;
+            document.getElementById('score').innerHTML = score;
+
+            bigMacro *=2;
+            runMacro(bigMacro);
+        }
+    }
+
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cuki</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+        }
+
+        #button1 {
+            height: 7.5vmin;
+            width: 20vmin;
+            border-radius: 4px;
+            margin-top: 7%;
+        }
+
+        #button2 {
+            height: 10vmin;
+            width: 25vmin;
+            border-radius: 4px;
+            margin-top: 15%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>I got bored.</h1> 
+    <h3>(Another random cookie clicker and it's not even working properly lol)</h3> 
+        <div>
+            <button onclick="addMacro()" id="button1">Upgrade macro! <p id="cost">100</p></button>
+        </div>
+
+        <div>
+            <button onclick="addSuperMacro()" id="button1">Buy lean!11!!111! <p id="lean">1000</p></button>
+        </div>
+
+        <div>
+            <button onclick="addCookie()" id="button2">Click Me!</button>
+            <p id="score" />
+        </div>
+</body>
+</html>
